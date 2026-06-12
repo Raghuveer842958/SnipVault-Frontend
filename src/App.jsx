@@ -1,16 +1,22 @@
 import { BrowserRouter } from "react-router-dom";
-import AppRoutes from "./routes/AppRoutes";
+
 import { Toaster } from "sonner";
+
+import AppRoutes from "./routes/AppRoutes";
+
+import AuthInitializer from "./components/AuthInitializer";
 
 function App() {
   return (
     <BrowserRouter>
-      <Toaster
-        position="top-right"
-      />
-      <AppRoutes />
-    </BrowserRouter>
 
+      <Toaster position="top-right" />
+
+      <AuthInitializer>
+        <AppRoutes />
+      </AuthInitializer>
+
+    </BrowserRouter>
   );
 }
 
