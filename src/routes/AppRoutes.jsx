@@ -5,6 +5,8 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
+import MySnippets from "../pages/MySnippets";
+import Folders from "../pages/Folders";
 
 const AppRoutes = () => {
     return (
@@ -24,6 +26,24 @@ const AppRoutes = () => {
                 element={
                     <ProtectedRoute>
                         <Dashboard />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/snippets"
+                element={
+                    <ProtectedRoute>
+                        <MySnippets />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/folders"
+                element={
+                    <ProtectedRoute>
+                        <Folders />
                     </ProtectedRoute>
                 }
             />

@@ -1,0 +1,135 @@
+import { Link } from "react-router-dom";
+
+const SnippetCard = ({ snippet, onEdit, onDelete, onMove }) => {
+    return (
+        <div
+            className="
+      bg-base-100
+      border
+      border-base-300
+      rounded-2xl
+      p-6
+      hover:shadow-xl
+      transition-all
+      duration-300
+    "
+        >
+            {/* Header */}
+
+            <div className="flex justify-between items-start mb-4">
+
+                <div>
+
+                    <h2 className="text-xl font-bold">
+                        {snippet.title}
+                    </h2>
+
+                    <p className="text-sm opacity-70 mt-1">
+                        {snippet.language}
+                    </p>
+
+                </div>
+
+                <div
+                    className={`
+          badge
+          ${snippet.visibility ===
+                            "public"
+                            ? "badge-success"
+                            : "badge-neutral"
+                        }
+        `}
+                >
+                    {snippet.visibility}
+                </div>
+
+            </div>
+
+            {/* Description */}
+
+            <div className="min-h-[60px]">
+
+                <p className="text-base-content/70 text-sm">
+
+                    {snippet.description ||
+                        "No description provided."}
+
+                </p>
+
+            </div>
+
+            {/* Tags */}
+
+            <div className="flex flex-wrap gap-2 mt-5">
+
+                {snippet.tags?.map(
+                    (tag) => (
+                        <span
+                            key={tag}
+                            className="
+                badge
+                badge-outline
+              "
+                        >
+                            #{tag}
+                        </span>
+                    )
+                )}
+
+            </div>
+
+            {/* Footer */}
+
+            <div className="mt-6 flex items-center justify-between">
+
+                <div className="flex items-center gap-4">
+
+                    <span className="text-sm opacity-70">
+                        ❤️{" "}
+                        {
+                            snippet.likes
+                                ?.length
+                        }
+                    </span>
+
+                </div>
+
+                <button
+                    onClick={() => onEdit(snippet)}
+                    className="
+  btn
+  btn-sm
+  btn-outline
+"
+                >
+                    Edit
+                </button>
+
+                <button
+                    onClick={() => onDelete(snippet._id)}
+                    className="
+  btn
+  btn-sm
+  btn-error
+  btn-outline
+"
+                >
+                    Delete
+                </button>
+
+                <button
+                    onClick={() => {
+                        console.log("Move clicked");
+                        onMove(snippet);
+                    }}
+                    className="btn btn-sm btn-outline"
+                >
+                    Move
+                </button>
+
+            </div>
+        </div>
+    );
+};
+
+export default SnippetCard;

@@ -6,7 +6,17 @@ import AppRoutes from "./routes/AppRoutes";
 
 import AuthInitializer from "./components/AuthInitializer";
 
+import { useEffect } from "react";
+
+import {
+  initializeTheme,
+} from "./utils/theme";
+
 function App() {
+
+  useEffect(() => {
+    initializeTheme();
+  }, []);
   return (
     <BrowserRouter>
 
