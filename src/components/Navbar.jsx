@@ -55,7 +55,7 @@ const Navbar = ({ setSidebarOpen }) => {
 
                 {/* Search */}
 
-                <div className="hidden md:block w-[400px]">
+                {/* <div className="hidden md:block w-[400px]">
 
                     <input
                         type="text"
@@ -63,7 +63,7 @@ const Navbar = ({ setSidebarOpen }) => {
                         className="input input-bordered w-full"
                     />
 
-                </div>
+                </div> */}
 
                 {/* Actions */}
 
@@ -71,7 +71,7 @@ const Navbar = ({ setSidebarOpen }) => {
 
                     <ThemeToggle />
 
-                    <div className="avatar placeholder">
+                    {/* <div className="avatar placeholder">
 
                         <div className="bg-primary text-primary-content rounded-full w-10">
 
@@ -81,7 +81,7 @@ const Navbar = ({ setSidebarOpen }) => {
 
                         </div>
 
-                    </div>
+                    </div> */}
 
                 </div>
 
