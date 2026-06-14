@@ -64,6 +64,34 @@ export const snippetApi = createApi({
                 "Snippet",
             ],
         }),
+
+        getExploreSnippets: builder.query({
+            query: ({
+                search = "",
+                language = "",
+                sort = "newest",
+                page = 1,
+            }) =>
+                `/snippets/explore/all?search=${search}&language=${language}&sort=${sort}&page=${page}`,
+        }),
+
+        getPublicSnippetById: builder.query({
+            query: (id) =>
+                `/snippets/public/${id}`,
+
+            providesTags: ["Snippet"],
+        }),
+
+        toggleLike: builder.mutation({
+            query: (id) => ({
+                url: `/snippets/${id}/like`,
+                method: "PUT",
+            }),
+
+            invalidatesTags: [
+                "Snippet",
+            ],
+        }),
     }),
 });
 
@@ -72,5 +100,8 @@ export const {
     useCreateSnippetMutation,
     useUpdateSnippetMutation,
     useDeleteSnippetMutation,
-    useMoveSnippetMutation
+    useMoveSnippetMutation,
+    useGetExploreSnippetsQuery,
+    useGetPublicSnippetByIdQuery,
+    useToggleLikeMutation,
 } = snippetApi;

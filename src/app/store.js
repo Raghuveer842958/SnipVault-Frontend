@@ -6,6 +6,7 @@ import { authApi } from "../api/authApi";
 import { userApi } from "../api/userApi";
 import { snippetApi } from "../api/snippetApi";
 import { folderApi } from "../api/folderApi";
+import { commentApi } from "../api/commentApi";
 
 export const store = configureStore({
     reducer: {
@@ -15,13 +16,15 @@ export const store = configureStore({
         [userApi.reducerPath]: userApi.reducer,
         [snippetApi.reducerPath]: snippetApi.reducer,
         [folderApi.reducerPath]: folderApi.reducer,
+        [commentApi.reducerPath]: commentApi.reducer,
     },
 
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(
             authApi.middleware,
-            userApi.middleware,
             snippetApi.middleware,
-            folderApi.middleware
+            folderApi.middleware,
+            commentApi.middleware,
+            userApi.middleware
         ),
 });

@@ -19,9 +19,18 @@ export const userApi = createApi({
                 query: () =>
                     "/users/dashboard",
             }),
+
+        updateProfile: builder.mutation({
+            query: (data) => ({
+                url: "/users/profile",
+                method: "PUT",
+                body: data,
+            }),
+        }),
     }),
 });
 
 export const {
     useGetDashboardDataQuery,
+    useUpdateProfileMutation,
 } = userApi;
