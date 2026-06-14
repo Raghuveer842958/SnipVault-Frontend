@@ -31,6 +31,8 @@ const Folders = () => {
     } =
         useGetFoldersQuery();
 
+    console.log("data is :", data)
+
     const editHandler = (
         folder
     ) => {

@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SnippetCard = ({ snippet, onEdit, onDelete, onMove }) => {
+    const navigate = useNavigate();
     return (
-        <Link
+        <div onClick={() => navigate(`/snippets/${snippet._id}`)}>
+            {/* <Link
             to={`/snippets/${snippet._id}`}
-        >
+        > */}
             <div
                 className="
       bg-base-100
@@ -15,6 +18,7 @@ const SnippetCard = ({ snippet, onEdit, onDelete, onMove }) => {
       hover:shadow-xl
       transition-all
       duration-300
+      cursor-pointer
     "
             >
                 {/* Header */}
@@ -61,6 +65,54 @@ const SnippetCard = ({ snippet, onEdit, onDelete, onMove }) => {
 
                 </div>
 
+                <div className="min-h-[60px]">
+
+                    <p className="text-base-content/70 text-sm">
+
+                        {snippet.description ||
+                            "No description provided."}
+
+                    </p>
+
+                </div>
+
+                {snippet.code && (
+
+                    <div
+                        className="
+            mt-4
+            bg-base-200
+            border
+            border-base-300
+            rounded-xl
+            p-3
+            overflow-hidden
+        "
+                    >
+
+                        <pre
+                            className="
+                text-xs
+                sm:text-sm
+                whitespace-pre-wrap
+                break-words
+                line-clamp-3
+            "
+                        >
+
+                            {
+                                snippet.code
+                                    .split("\n")
+                                    .slice(0, 3)
+                                    .join("\n")
+                            }
+
+                        </pre>
+
+                    </div>
+
+                )}
+
                 {/* Tags */}
 
                 <div className="flex flex-wrap gap-2 mt-5">
@@ -83,7 +135,17 @@ const SnippetCard = ({ snippet, onEdit, onDelete, onMove }) => {
 
                 {/* Footer */}
 
-                <div className="mt-6 flex items-center justify-between">
+                <div
+                    className="
+        mt-6
+        flex
+        flex-col
+        lg:flex-row
+        gap-4
+        lg:items-center
+        lg:justify-between
+    "
+                >
 
                     <div className="flex items-center gap-4">
 
@@ -103,42 +165,54 @@ const SnippetCard = ({ snippet, onEdit, onDelete, onMove }) => {
 
                     </div>
 
-                    <button
-                        onClick={() => onEdit(snippet)}
+                    <div
                         className="
-  btn
-  btn-sm
-  btn-outline
-"
+        flex
+        flex-wrap
+        gap-2
+    "
                     >
-                        Edit
-                    </button>
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onEdit(snippet);
+                            }}
+                            className="btn btn-sm btn-outline"
+                        >
+                            Edit
+                        </button>
 
-                    <button
-                        onClick={() => onDelete(snippet._id)}
-                        className="
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onDelete(snippet._id)
+                            }}
+                            className="
   btn
   btn-sm
   btn-error
   btn-outline
 "
-                    >
-                        Delete
-                    </button>
+                        >
+                            Delete
+                        </button>
 
-                    <button
-                        onClick={() => {
-                            console.log("Move clicked");
-                            onMove(snippet);
-                        }}
-                        className="btn btn-sm btn-outline"
-                    >
-                        Move
-                    </button>
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                console.log("Move clicked");
+                                onMove(snippet);
+                            }}
+                            className="btn btn-sm btn-outline"
+                        >
+                            Move
+                        </button>
+                    </div>
 
                 </div>
             </div>
-        </Link>
+            {/* </Link> */}
+        </div>
     );
 };
 

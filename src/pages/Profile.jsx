@@ -10,14 +10,53 @@ import {
 import { toast } from "sonner";
 
 import {
-    useSelector,
+    useSelector, useDispatch
 } from "react-redux";
+import { useLogoutUserMutation } from "../api/authApi";
+import { useClear } from "../features/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+    const dispatch = useDispatch();
+    const navigate= useNavigate()
+
     const {
         data,
         isLoading,
     } = useGetDashboardDataQuery();
+
+    const [logout] =
+        useLogoutUserMutation();
+
+    const logoutHandler = async () => {
+
+        try {
+
+            const response =
+                await logout().unwrap();
+
+            console.log(response);
+
+            dispatch(useClear());
+
+            navigate("/login");
+
+            toast.success(
+                "Logged out successfully"
+            );
+
+        } catch (error) {
+
+            console.log(error);
+
+            toast.error(
+                error?.data?.message ||
+                "Logout failed"
+            );
+
+        }
+
+    };
 
     const user = useSelector((state) => state.auth.user);
 
@@ -99,7 +138,7 @@ const Profile = () => {
 
                 {/* Header Card */}
 
-                <div
+                {/* <div
                     className="
                 bg-base-100
                 border
@@ -144,6 +183,95 @@ const Profile = () => {
                             </p>
 
                         </div>
+
+                    </div>
+
+                </div> */}
+
+                <div
+                    className="
+        bg-base-100
+        border
+        border-base-300
+        rounded-2xl
+        p-6
+        mb-8
+    "
+                >
+
+                    <div
+                        className="
+            flex
+            flex-col
+            sm:flex-row
+            sm:items-center
+            sm:justify-between
+            gap-5
+        "
+                    >
+
+                        {/* User Info */}
+
+                        <div className="flex items-center gap-5">
+
+                            <div
+                                className="
+                    w-16
+                    h-16
+                    rounded-full
+                    bg-primary
+                    text-primary-content
+                    flex
+                    items-center
+                    justify-center
+                    text-2xl
+                    font-bold
+                    shrink-0
+                "
+                            >
+                                {user?.name?.charAt(0)?.toUpperCase()}
+                            </div>
+
+                            <div className="min-w-0">
+
+                                <h1
+                                    className="
+                        text-2xl
+                        sm:text-3xl
+                        font-bold
+                        break-words
+                    "
+                                >
+                                    {user?.name}
+                                </h1>
+
+                                <p
+                                    className="
+                        text-base-content/70
+                        break-all
+                    "
+                                >
+                                    {user?.email}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        {/* Logout Button */}
+
+                        <button
+                            onClick={logoutHandler}
+                            className="
+                btn
+                btn-outline
+                btn-error
+                w-full
+                sm:w-auto
+            "
+                        >
+                            Logout
+                        </button>
 
                     </div>
 

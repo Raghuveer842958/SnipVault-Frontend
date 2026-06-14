@@ -69,8 +69,10 @@ const SnippetDetail = () => {
         data?.snippet;
 
     useEffect(() => {
-        Prism.highlightAll();
-    }, [data]);
+        if (snippet?.code) {
+            Prism.highlightAll();
+        }
+    }, [snippet]);
 
     const languageMap = {
         JavaScript: "javascript",
@@ -181,30 +183,35 @@ const SnippetDetail = () => {
 
                 <div
                     className="
-                    bg-base-100
-                    border
-                    border-base-300
-                    rounded-2xl
-                    p-6
-                    mb-6
-                "
+        bg-base-100
+        border
+        border-base-300
+        rounded-2xl
+        p-4
+        sm:p-6
+        mb-6
+    "
                 >
 
-                    <h1 className="text-3xl font-bold">
-
+                    <h1
+                        className="
+            text-2xl
+            sm:text-3xl
+            font-bold
+            break-words
+        "
+                    >
                         {snippet.title}
-
                     </h1>
 
-                    <p className="opacity-70 mt-2">
-
-                        By {
-                            snippet.createdBy?.name
-                        }
-
-                    </p>
-
-                    <div className="mt-4 flex gap-2">
+                    <div
+                        className="
+            flex
+            flex-wrap
+            gap-2
+            mt-4
+        "
+                    >
 
                         <span className="badge badge-primary">
 
@@ -212,14 +219,44 @@ const SnippetDetail = () => {
 
                         </span>
 
-                        <span
-                            className="
-                            badge
-                            badge-outline
-                        "
-                        >
-                            ❤️ {
-                                snippet.likes?.length || 0
+                        <span className="badge badge-outline">
+
+                            ❤️ {snippet.likes?.length || 0}
+
+                        </span>
+
+                    </div>
+
+                    <div
+                        className="
+            flex
+            flex-col
+            sm:flex-row
+            sm:flex-wrap
+            gap-2
+            sm:gap-4
+            mt-4
+            text-sm
+            text-base-content/70
+        "
+                    >
+
+                        <span>
+                            👤 {snippet.createdBy?.name}
+                        </span>
+
+                        <span>
+                            📅 {
+                                new Date(
+                                    snippet.createdAt
+                                ).toLocaleDateString(
+                                    "en-IN",
+                                    {
+                                        day: "numeric",
+                                        month: "short",
+                                        year: "numeric",
+                                    }
+                                )
                             }
                         </span>
 
@@ -320,16 +357,6 @@ const SnippetDetail = () => {
                     p-6
                 "
                 >
-
-                    <h2
-                        className="
-                        font-semibold
-                        text-xl
-                        mb-3
-                    "
-                    >
-                        Code
-                    </h2>
 
                     {/* <pre
                         className="
@@ -433,18 +460,27 @@ const SnippetDetail = () => {
                             }
                         />
 
-                        <button
+                        <div
                             className="
+        flex
+        justify-end
+        mt-3
+    "
+                        >
+
+                            <button
+                                className="
             btn
             btn-primary
-            mt-3
+            w-full
+            sm:w-auto
         "
-                            onClick={
-                                commentHandler
-                            }
-                        >
-                            Post Comment
-                        </button>
+                                onClick={commentHandler}
+                            >
+                                Post Comment
+                            </button>
+
+                        </div>
 
                     </div>
 
@@ -462,68 +498,101 @@ const SnippetDetail = () => {
 
                         ) : (
 
-                            comments.map(
-                                (comment) => (
+                            comments.map((comment) => (
+
+                                <div
+                                    key={comment._id}
+                                    className="
+            border
+            border-base-300
+            rounded-xl
+            p-3 sm:p-4
+            bg-base-100
+        "
+                                >
+
+                                    {/* Top Row */}
 
                                     <div
-                                        key={
-                                            comment._id
-                                        }
                                         className="
-                        border
-                        border-base-300
-                        rounded-xl
-                        p-4
-                    "
+                flex
+                justify-between
+                items-start
+                gap-3
+            "
                                     >
 
-                                        <div
-                                            className="
-                            flex
-                            justify-between
-                            mb-2
-                        "
-                                        >
+                                        <div className="flex-1 min-w-0">
 
-                                            <strong>
-
-                                                {
-                                                    comment
-                                                        .createdBy
-                                                        ?.name
-                                                }
-
-                                            </strong>
-
-                                            <button
+                                            <div
                                                 className="
-                                btn
-                                btn-xs
-                                btn-error
-                            "
-                                                onClick={() =>
-                                                    deleteComment(
-                                                        comment._id
-                                                    )
-                                                }
+                        flex
+                        flex-col
+                        sm:flex-row
+                        sm:items-center
+                        gap-1
+                        sm:gap-2
+                    "
                                             >
-                                                Delete
-                                            </button>
+
+                                                <h4
+                                                    className="
+                            font-semibold
+                            text-sm
+                        "
+                                                >
+                                                    {comment.createdBy?.name}
+                                                </h4>
+
+                                                <span
+                                                    className="
+                            text-xs
+                            text-base-content/60
+                        "
+                                                >
+                                                    • {
+                                                        new Date(
+                                                            comment.createdAt
+                                                        ).toLocaleDateString()
+                                                    }
+                                                </span>
+
+                                            </div>
+
+                                            <p
+                                                className="
+                        mt-2
+                        text-sm
+                        break-words
+                        text-base-content/80
+                    "
+                                            >
+                                                {comment.text}
+                                            </p>
 
                                         </div>
 
-                                        <p>
-
-                                            {
-                                                comment.content
+                                        <button
+                                            className="
+                    btn
+                    btn-error
+                    btn-xs
+                    shrink-0
+                "
+                                            onClick={() =>
+                                                deleteComment(
+                                                    comment._id
+                                                )
                                             }
-
-                                        </p>
+                                        >
+                                            Delete
+                                        </button>
 
                                     </div>
-                                )
-                            )
 
+                                </div>
+
+                            ))
                         )}
 
                     </div>
@@ -561,6 +630,8 @@ const SnippetDetail = () => {
 
         </MainLayout>
     );
+
+
 };
 
 export default SnippetDetail;

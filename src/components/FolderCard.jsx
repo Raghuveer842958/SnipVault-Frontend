@@ -4,6 +4,7 @@ const FolderCard = ({
     onDelete,
     onOpen,
 }) => {
+    console.log("folder data is :", folder)
     return (
         <div
             className="
@@ -24,6 +25,29 @@ const FolderCard = ({
                     📁 {folder.name}
                 </h2>
 
+                <p
+                    className="
+        text-xs
+        badge
+        badge-outline
+        mt-2
+    "
+                >
+                    {folder.snippetCount || 0} snippets
+                </p>
+
+                <p
+                    className="
+        text-xs
+        badge
+        badge-outline
+        mt-2
+        ml-2
+    "
+                >
+                    📁 {folder.folderCount} folders
+                </p>
+
                 {folder.parentFolder && (
                     <p className="text-sm opacity-70 mt-2">
 
@@ -38,13 +62,13 @@ const FolderCard = ({
 
             </div>
 
-            <p className="text-sm opacity-70 mt-4">
+            {/* <p className="text-sm opacity-70 mt-4">
 
                 {folder.snippets?.length || 0}
                 {" "}
                 snippets
 
-            </p>
+            </p> */}
 
             <div className="flex gap-2 mt-6">
 

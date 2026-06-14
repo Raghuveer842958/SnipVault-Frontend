@@ -106,11 +106,7 @@ const Explore = () => {
                     <input
                         type="text"
                         placeholder="Search snippets..."
-                        className="
-    input
-    input-bordered
-    flex-1
-  "
+                        className="input input-bordered w-full md:flex-1"
                         value={search}
                         onChange={(e) =>
                             setSearch(

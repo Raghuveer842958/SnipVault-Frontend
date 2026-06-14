@@ -54,9 +54,8 @@ const MySnippets = () => {
         }
     };
 
-    const editHandler = (
-        snippet
-    ) => {
+    const editHandler = (snippet) => {
+        console.log("onedit called!!")
         setSelectedSnippet(
             snippet
         );
@@ -193,7 +192,7 @@ const MySnippets = () => {
                     <input
                         type="text"
                         placeholder="Search snippets..."
-                        className=" input input-bordered flex-1"
+                        className="input input-bordered w-full md:flex-1"
                         value={searchTerm}
                         onChange={(e) =>
                             setSearchTerm(
@@ -230,47 +229,27 @@ const MySnippets = () => {
                 </div>
             )}
 
-            {snippets.length === 0 ? (
-                <div
-                    className="
-          bg-base-100
-          border
-          border-base-300
-          rounded-2xl
-          p-10
-          text-center
-        "
-                >
-                    <h2 className="text-2xl font-semibold">
-                        No snippets yet
-                    </h2>
+            {snippets.length && <div
+                className="
+          grid
+          xl:grid-cols-2
+          gap-6
+        ">
 
-                    <p className="opacity-70 mt-2">
-                        Create your first snippet.
-                    </p>
+                {filteredSnippets.map((snippet) => (
+                    <SnippetCard
+                        key={snippet._id}
+                        snippet={snippet}
+                        onEdit={editHandler}
+                        onDelete={
+                            deleteHandler
+                        }
+                        onMove={moveHandler}
+                    />
+                ))}
 
-                </div>
-            ) : (
-                <div className="grid xl:grid-cols-2 gap-6">
+            </div>}
 
-                    <div className="grid xl:grid-cols-2 gap-6">
-
-                        {filteredSnippets.map((snippet) => (
-                            <SnippetCard
-                                key={snippet._id}
-                                snippet={snippet}
-                                onEdit={editHandler}
-                                onDelete={
-                                    deleteHandler
-                                }
-                                onMove={moveHandler}
-                            />
-                        ))}
-
-                    </div>
-
-                </div>
-            )}
 
             <CreateSnippetModal
                 isOpen={openModal}

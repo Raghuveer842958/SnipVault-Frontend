@@ -8,6 +8,7 @@ import { store } from "./app/store";
 import App from "./App";
 
 import "./index.css";
+import "prismjs/themes/prism-tomorrow.css";
 
 ReactDOM.createRoot(
     document.getElementById("root")
