@@ -89,21 +89,21 @@ Backend Health Check: YOUR_RENDER_URL
 
 Add screenshots here:
 
-### Login Page
-
-![Login](./screenshots/login.png)
-
 ### Dashboard
 
 ![Dashboard](./screenshots/dashboard.png)
 
-### Explore
+### Snippet
 
-![Explore](./screenshots/explore.png)
+![Snippet](./screenshots/snippets.png)
 
-### Snippet Detail
+### Folder
 
-![Snippet Detail](./screenshots/snippet-detail.png)
+![Folder](./screenshots/folder.png)
+
+### Profile Page
+
+![Profile Page](./screenshots/profile.png)
 
 ---
 
